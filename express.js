@@ -38,12 +38,14 @@ app.get('/item/:id', (req, res) => {
             res.status(404).json({message: "Não desista, em breve fica pior"});
         }
 }); 
-
+    //5
+    app.get('item/count', (req,res))= >{
+        constcount = items.length;res.json({count});
+    }
 
 app.post('/item', (req, res) => 
 //1. Adicionar Validação Simples nos Dados...
 {const { name } = req.body;
-
 
 if (!name || typeof name !== 'string' || name.length < 3){
     return res.status(400).json({
@@ -75,6 +77,12 @@ app.put('/item/:id', (req, res) => {
     const index = items.findIndex(item => item.id === id);
     if (index !== -1) {
         items[index] = {id, ...req.body}
+        //3
+        if (typeof name !=='string') {
+            return res.status(400).json({
+                menssage:'O campo nome deve ser uma string'
+            });
+        }
         res.status(200).json(items[index]);
     } else {
         res.status(404).json({ message: "Item não encontrado!"});
